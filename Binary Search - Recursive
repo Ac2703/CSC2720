@@ -1,0 +1,14 @@
+# Binary Search Recursive
+def FindTargetBin(arr, target, low, high):
+    if high >= low:
+        mid = int((high + low)/2)
+    if arr[mid] == target:
+        print(arr.index(target))
+    elif target < mid:
+        high = mid - 1
+        return FindTargetBin(arr, target, low, high)
+    elif target > mid:
+        low = mid + 1
+        return FindTargetBin(arr, target, low, high)
+    else:
+        print("-1")
