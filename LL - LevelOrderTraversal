@@ -1,0 +1,90 @@
+from collections import deque as de
+
+# Class to represent Tree nodes
+class Node:
+    # A function to initialize a new node
+    def __init__(self, key):
+        self.data = key
+        self.left = None
+        self.right = None
+
+
+    # function for level order traversal
+    def levelOrderTraversal(self):
+
+        # output list
+        out = []
+        # queue for ordering Nodes
+        queue = de([])
+
+        # add root to the queue
+        queue.append(self)
+
+        #while the queue has items in it
+        while len(queue) > 0:
+            # sent the current equals to the  current first/leftmost one in the queue  
+            curr = queue.popleft()
+            # add the data of the Node in the out list
+            out.append(curr.data)
+
+            # if there is a left Node in current
+            if curr.left:
+                # add the left Node to the queue
+                queue.append(curr.left)
+            # if there is a right Node in current
+            if curr.right:
+                # add the right Node to the queue
+                queue.append(curr.right)
+
+        # return the output list
+        return out
+        
+        
+
+
+
+def main():
+
+
+    # Creation of Binary Tree
+    root = Node(4)
+    
+    
+    # if root doesn't exist, tree doesn't exist
+    if not root:
+        print("Error: No tree given.")
+        return
+    
+    root.left = Node(2)
+    root.right = Node(6)
+    root.left.left = Node(1)
+    root.left.right = Node(3)
+    root.right.left = Node(5)
+    root.right.right = Node(7)
+
+
+    # outputArray 
+    outputArray = root.levelOrderTraversal()
+
+
+    # print out the element within the output list
+    for i in range(0, len(outputArray)):
+        print(outputArray[i], end = " ")
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(n)
+
+    # TEST CASES
+    # No root given
+    # root = None
+    # Expected Output: "Error: No tree given."
+
+    # Only one Node 
+    # root = Node(4)
+    # Expected Output: "4"
+
+
+
+
+
+main()
