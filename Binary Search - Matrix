@@ -1,0 +1,55 @@
+def SearchMatrix(matrix, target):
+    # Lower Bound = first row
+    low = 0
+
+    # Upper bound = last row
+    high = len(matrix) - 1
+
+    while low <= high:
+        # Get mid
+        midRow = (low + (high - low) // 2)
+
+        # If the mid row is the target row (Mid row = target row when target is in Range)
+        if matrix[midRow][0] <= target <= matrix[midRow][-1]:
+
+            targetRow = matrix[midRow]
+
+            left = 0
+            right = len(targetRow) - 1
+
+            while left <= right:
+                midCol = (left + (right - left) // 2)
+
+                if targetRow[midCol] == target:
+                    return (midRow, midCol)
+
+                elif targetRow[midCol] < target:
+                    left = midCol + 1
+
+                elif targetRow[midCol] > target:
+                    right = midCol - 1
+            return (-1)
+
+        # If the mid row is less than the target row  (target is greater than last element of MidRow)
+        if matrix[midRow][-1] < target:
+            # lower bound + 1
+            low = midRow + 1
+
+        # If the mid row is greater than the target row (target is less than last element of MidRow)
+        if matrix[midRow][0] > target:
+            # upper bound - 1
+            high = midRow - 1
+    return (-1)
+
+
+def main():
+    arr = [[1,2,3,4], 
+           [5,8,9,10], 
+           [11,12,13,14],
+           [15,16,17,18]]
+
+
+    print("The target is located at the index: " + str(SearchMatrix(arr, 9)))
+
+
+main()
