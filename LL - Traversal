@@ -1,0 +1,29 @@
+class Node:
+   def  __init__(self, dataVal = None):
+      self.data = dataVal
+      self.next = None
+
+
+class LinkedList:
+   def __init__(self):
+      self.headVal = None
+
+   def listPrint(self):
+      currentVal = self.headVal
+      while currentVal:
+         print(currentVal.data)
+         currentVal = currentVal.next
+
+
+def main():
+   List = LinkedList()
+   List.headVal = Node(1)
+   N2 = Node(2)
+   N3 = Node(3)
+
+   List.headVal.next = N2
+   N2.next = N3
+
+   List.listPrint()
+
+main()
