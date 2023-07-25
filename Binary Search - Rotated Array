@@ -1,0 +1,74 @@
+
+# BINARY SEARCH
+
+def search(nums, target, l, r):
+
+    while l <= r: # Avoiding redundant checks by saying l <= r
+
+        mid = int (l + (r - l) /2)
+
+        if nums[mid] == target:
+            return mid
+
+        elif nums[mid] < target:
+            l = mid + 1
+           
+        elif nums[mid] > target:
+            r = mid - 1
+    return (-1)    
+      
+        
+numsarr = [5,7,9,15,16,19,20]      
+targetnum = 5
+
+print(search(numsarr, targetnum, l = 0, r = 6))
+
+
+    # How many times an algorithm runs given the number of elements in a list = Big O notation
+    # Algorithm Design - computer science is a field where its practictioners design effective algorithms to solve problems
+    # Algorithms don't happen without proper ways to store and design data
+    # Algorithms need data structures - binary search doesn't happen without the list being already structured in an ascending sorted way
+
+
+# SORTED ARRAY BINARY SEARCH
+
+arr = [3,4,5,6,7,0,1,2]
+    # Rotated sorted array (nearly sorted)
+    # Subarray A = [3,4,5,6,7] - sorted, Subarray B =  [0,1,2,3] - sorted
+    # Target = 0 , RB = 3, LB = 2
+
+
+def searchnew(nums, target, l, r):
+
+    while l <= r: # Avoiding redundant checks by saying l <= r
+
+        mid = (l + (r - l) // 2)
+
+        if nums[mid] == target:
+            return mid
+
+        # If left bound < middle
+        elif nums[l] <= nums[mid]:
+            
+            # If the target > middle, or target < left bound
+            if target > nums[mid] or target < nums[l]:
+                l = mid + 1
+            
+            #If the target !> middle or target !> left bound
+            else: 
+                r = mid - 1 
+           
+        # If left bound > middle
+        else:
+
+            # If the target < middle or target > right bound
+            if target < nums[mid] or target > nums[r]:
+                r = mid - 1
+
+            # If the target !< middle or the target !> right
+            else:
+                l = mid + 1
+    return (-1)    
+      
+
+print(searchnew(arr, target = 5, l = 0, r = 7))
