@@ -1,0 +1,116 @@
+# Class to represent Tree node
+class Node:
+    # A function to create a new node
+    def __init__(self, key):
+        self.data = key
+        self.left = None
+        self.right = None
+
+
+    # function to delete and replace root with predecessor
+    def deleteAndReplace(self):
+
+        # current is set to root
+        curr = self
+
+        # if current's left child doesn't exist
+        if not curr.left:
+            # return the right child
+            return curr.right
+        
+        # if the current's right child doesnt' exist
+        if not curr.right:
+            # return the left child
+            return curr.left
+            
+        
+        # set current to left child
+        curr = curr.left
+
+        # if current's right child doesn't exist
+        if not curr.right:
+            # set root's data to current's data
+            self.data = curr.data
+            # set root's left to current's left
+            self.left = curr.left
+            # return root
+            return self
+        
+        # while current.right.right exists
+        while curr.right.right:
+            # remove the right child
+            curr = curr.right
+            
+        
+        # set root's data to predecessor's data
+        self.data = curr.right.data
+        # set right pointer to right.left child
+        curr.right = curr.right.left
+        return self
+    
+
+
+    # in order traversal
+    def inOrderTraversal(self):
+
+        # current is set to root
+        curr = self
+       
+        # if left child of current node exists
+        if curr.left:
+            # recursive call of this function on left
+            curr.left.inOrderTraversal()
+        # print data in current node
+        print(curr.data)
+        # if right child of current node exists
+        if curr.right:
+            # recursive call of this function on right
+            curr.right.inOrderTraversal()
+
+    
+      
+
+def main():
+
+    root = Node(4)
+    root.left = Node(2)
+    root.right = Node(6)
+    root.left.left = Node(1)
+    root.left.right = Node(3)
+    root.right.left = Node(5)
+    root.right.right = Node(7)
+
+
+    # Delete root node, replace with predecessor
+    root = root.deleteAndReplace()
+
+    # Error Handling
+    if root == None:
+            print ("Error: Root does not exist, cannot traverse.")
+            return
+    
+    # In order traversal
+    root.inOrderTraversal()
+
+
+    # Time Complexity: O(n)
+    # Space Complexity: O(n)
+
+    # Test Cases:
+
+    # Not having any child nodes
+    # root = Node(4)
+    # Expected Output: "Error: Root does not exist, cannot traverse."
+
+    # Having only one child node, left
+    # root = Node(4)
+    # root.left = Node(2)
+    # Expected Output: 2
+
+    # Having only one child node, right
+    # root = Node(4)
+    # root.left = Node(6)
+    # Expected Output: 6
+
+
+main()
