@@ -1,0 +1,103 @@
+from collections import deque
+
+
+# remove spaces
+def removeSpaces(problem):
+
+    # turn string into list  
+    problemList = list(problem)
+    
+    # go through list, if the value is " " remove it
+    i = 0
+    while i < len(problemList):
+        if problemList[i] == ' ':
+            problemList.pop(i)
+        i += 1
+
+    return problemList 
+        
+    
+
+def solveStack(problemList):
+
+    # if the stack has less than 3 items, return an error
+    if len(problemList) < 3:
+        return "Not a valid problem."
+
+    # turn the list into a deque
+    stack = deque(problemList)
+
+    
+    # until the stack length is only 1 value
+    i = 0
+    while len(stack) > 1:
+
+        # pop removes and returns, so remove values until you remove an operator
+        num1 = int(stack.popleft())
+        num2 = int(stack.popleft())
+        operator = stack.popleft()
+
+        # if popped operator is a plus, add the numbers and add it to the stack  
+        if operator == "*":
+            
+            product = num1 * num2
+            stack.appendleft(product)
+
+        # if the popped operator is a minus, subtract the numbers and add that to the stack   
+        elif operator == "/":
+
+            quotient = num1 / num2
+            stack.appendleft(quotient)
+
+        elif operator == "+":
+
+            sum = num1+num2
+            stack.appendleft(sum)
+
+        elif operator == "-":
+
+            diff = num1 - num2
+
+            stack.appendleft(diff)
+
+        else:
+            return "Please give a problem with a valid operator."
+        i += 1
+    # when the stack length is only one value, then return that final value 
+    return stack.popleft()
+    
+        
+
+
+def main():
+
+    # the problem as a string
+    problem = input("Enter a problem. Keep spaces in between each item in the expression: ")
+
+    # remove the spaces and turn it into a list
+    problemList = removeSpaces(problem)
+
+    # print the answer after doing the stack
+    print(solveStack(problemList))
+
+    # Space Complexity = O(n) if you count converting the string into a deque, O(1) otherwise
+    # Time Complexity = O(n) because of the while loop
+
+    # TEST CASES
+
+    # Less than 3 items in stack
+    # stack("3 5 ")
+    # "Not a valid problem."
+
+    # No operators
+    # stack("3 5 1 ")
+    # "Please give a problem with a valid operator."
+
+    # No valid operators
+    # stack("3 5 & 1 . ")
+    # Please give a problem with a valid operator.
+
+
+
+
+main()
