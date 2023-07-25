@@ -1,0 +1,54 @@
+# FIND THE PARTITION
+def partition(arr, low, high):
+    # Pivot is the rightmost element
+    pivot = arr[high]
+    # Pointer 
+    i = low - 1
+    # Go through all elements, and compare each element with the pivot
+    for j in range (low, high):
+        if arr[j] < pivot:
+            i += 1
+            # Swap i element with j element
+            (arr[i], arr[j]) = (arr[j], arr[i])
+   
+    # Swap pivot element with the greater element
+    (arr[i+1], arr[high]) = (arr[high], arr[i+1])
+
+    # Return the position where the partition is
+    return i+1
+
+# QUICK SORT
+def quickSort(arr, low, high):
+    # if the low element is less than the high element
+    if low < high:
+        # Find the partition
+        pivotIndex = partition(arr, low, high)
+
+        # Quicksort on everything to the left of the pivot
+        quickSort(arr, low, pivotIndex - 1)
+        # Quicksort on everything to the right of the pivot
+        quickSort(arr, pivotIndex + 1, high)
+
+# DE DUPLICATE THE ARRAY
+def deDuplicate(arr):
+
+    if arr is None:
+        return ("Null input given.")
+
+    # Perform quickSort on the array
+    quickSort(arr, 0, len(arr) - 1)
+
+    # Set the length of the deduplicated array to 0
+    deDuplicate_length = 0
+
+    # Go through the list
+    for i in range(1, len(arr)):
+        # If the element at the current index in sorted array isn't equal to the element at current index in deduplicated array
+        if arr[i] != arr[deDuplicate_length]:
+            # Increase length of deduplication array by one
+            deDuplicate_length += 1
+            # Add the element at current index in sorted array to the last element in the deduplicated array
+            arr[deDuplicate_length] = arr[i]
+
+    # Update elements of the deduplicated array to the sorted array 
+    return (arr[:deDuplicate_length + 1])
