@@ -1,0 +1,55 @@
+class Node:
+    def __init__(self, dataVal):
+        self.data = dataVal
+        self.next = None
+
+
+class LinkedList:
+    def __init__(self):
+        self.headVal = None
+
+
+
+    def insertionMiddle(self, insertionNode):
+        current = self.headVal
+        # go through the whole thing while the next isn't none
+        while current.next:
+            # if current.next is where you want to insert
+            if current.data < insertionNode.data and current.next.data > insertionNode.data:
+                    # Set new Node's nextval to current.next
+                    insertionNode.next = current.next
+                    # Set the previous current's nextVal to insertion Node
+                    current.next = insertionNode
+            current = current.next
+
+
+    
+    def listPrint(self):
+        currentVal = self.headVal
+        while currentVal:
+            print(currentVal.data)
+            currentVal = currentVal.next
+        
+
+
+
+def main():
+   List = LinkedList()
+   List.headVal = Node(1)
+   N2 = Node(2)
+   N3 = Node(3)
+
+    # create a new Node to insert
+   N4 = Node(2.5)
+
+   List.headVal.next = N2
+   N2.next = N3
+
+
+
+
+   List.listPrint()
+   List.insertionMiddle(N4)
+   List.listPrint()
+
+main()
